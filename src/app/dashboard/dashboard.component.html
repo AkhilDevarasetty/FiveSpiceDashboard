@@ -1,1 +1,30 @@
-<p>dashboard works!</p>
+<section>
+  <!--DashBoard Header-->
+  <div class="dashboard-header-container">
+    <h1 class="dashboard-header">{{ dashBoardTitle }}</h1>
+    <img src="/assets/images/namaste.svg" class="namaste-img" />
+  </div>
+  <!--DashBoard Body-->
+  <div class="dashboard-container">
+    <div class="category-column" #categoryColumn>
+      <app-fruits
+        [fruitsData]="fruitsData"
+        [productsPerSlide]="productsPerSlide"
+      ></app-fruits>
+      <div class="separator-line"></div>
+    </div>
+    <div class="category-column">
+      <app-vegetables
+        [vegetablesData]="vegetablesData"
+        [productsPerSlide]="productsPerSlide"
+      ></app-vegetables>
+      <div class="separator-line"></div>
+    </div>
+    <div class="category-column">
+      <app-herbs
+        [herbsAndGreensData]="herbsAndGreensData"
+        [productsPerSlide]="productsPerSlide"
+      ></app-herbs>
+    </div>
+  </div>
+</section>

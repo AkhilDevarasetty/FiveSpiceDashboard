@@ -1,0 +1,17 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Inter&family=Karla:wght@700&display=swap"); */
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+h1 {
+  font-size: 36px;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  align-self: center;
+  margin: 0;
+  margin-top: 1rem;
+}

@@ -1,1 +1,26 @@
-<p>carousel works!</p>
+<!--NGX BootStrap Carousal-->
+<carousel
+  slide
+  [interval]="myInterval"
+  [(activeSlide)]="activeSlideIndex"
+  [isAnimated]="true"
+  [showIndicators]="false"
+>
+  <div class="carousel-inner" style="height: 100%">
+    <ng-container *ngFor="let chunk of chunkedProducts">
+      <slide class="slide">
+        <div class="card-grid">
+          <div *ngFor="let product of chunk" class="card">
+            <img [src]="product.image" alt="Fruit Image" />
+            <div class="info">
+              <h2 class="name">{{ product.name }}</h2>
+              <p class="price">
+                Price: <strong>${{ product.price }} </strong>/ {{ product.uom }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </slide>
+    </ng-container>
+  </div>
+</carousel>

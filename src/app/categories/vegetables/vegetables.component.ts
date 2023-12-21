@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
+import { CarouselComponent } from "../../carousel/carousel.component";
 
 @Component({
-  selector: 'app-vegetables',
+  selector: "app-vegetables",
   standalone: true,
-  imports: [],
-  templateUrl: './vegetables.component.html',
-  styleUrl: './vegetables.component.css'
+  imports: [CarouselComponent],
+  templateUrl: "./vegetables.component.html",
+  styleUrl: "./vegetables.component.css",
 })
-export class VegetablesComponent {
-
+export class VegetablesComponent implements OnInit {
+  @Input() vegetablesData: any;
+  @Input() productsPerSlide: number = 0; //Test Variable
+  ngOnInit(): void {}
 }

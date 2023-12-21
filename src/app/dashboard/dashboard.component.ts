@@ -1,12 +1,82 @@
-import { Component } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { dashboardData } from "../../data";
+import { FruitsComponent } from "../categories/fruits/fruits.component";
+import { VegetablesComponent } from "../categories/vegetables/vegetables.component";
+import { HerbsComponent } from "../categories/herbs/herbs.component";
+import { CarouselComponent } from "../carousel/carousel.component";
 
 @Component({
-  selector: 'app-dashboard',
+  selector: "app-dashboard",
   standalone: true,
-  imports: [],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  imports: [
+    FruitsComponent,
+    VegetablesComponent,
+    HerbsComponent,
+    CarouselComponent,
+  ],
+  templateUrl: "./dashboard.component.html",
+  styleUrl: "./dashboard.component.css",
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, AfterViewInit {
+  @ViewChild("categoryColumn") categoryColumn!: ElementRef<HTMLDivElement>;
+  fruitsData: any;
+  vegetablesData: any;
+  herbsAndGreensData: any;
+  categoriesData: any = [];
+  productsPerSlide: number = 0; // test variable
+  dashBoardTitle: string = "Welcome to Five Spice Grocery Store";
+  ngOnInit(): void {
+    console.log(dashboardData);
 
+    /**This is used for sequential rendering of categories like Fruits->Vegetables->Herbs */
+    this.categoriesData = [
+      {
+        category: "Fruits",
+        products: dashboardData["Fruits"],
+      },
+      {
+        category: "Vegetables",
+        products: dashboardData["Vegetables"],
+      },
+      {
+        category: "Herbs",
+        products: dashboardData["Herbs and Greens"],
+      },
+    ];
+
+    this.fruitsData = dashboardData["Fruits"];
+    this.vegetablesData = dashboardData["Vegetables"];
+    this.herbsAndGreensData = dashboardData["Herbs and Greens"];
+  }
+
+  ngAfterViewInit(): void {
+    this.adjustProductsPerSlide();
+  }
+
+  /**Function to adjust the number of products per slide based on available height - In testing */
+  adjustProductsPerSlide(): void {
+    const columnElement = this.categoryColumn.nativeElement;
+    const columnStyles = getComputedStyle(columnElement);
+    const paddingTop = parseInt(columnStyles.paddingTop, 10);
+    const paddingBottom = parseInt(columnStyles.paddingBottom, 10);
+    const columnHeight =
+      columnElement.clientHeight - paddingTop - paddingBottom;
+
+    const cardElement = columnElement.querySelector(".card");
+    if (cardElement) {
+      const cardStyles = getComputedStyle(cardElement);
+      const cardMargin = parseInt(cardStyles.marginBottom, 10);
+
+      const cardHeight = cardElement.clientHeight + cardMargin;
+      this.productsPerSlide = Math.floor(columnHeight / cardHeight);
+
+      console.log("Products per slide:", this.productsPerSlide);
+    }
+  }
 }
