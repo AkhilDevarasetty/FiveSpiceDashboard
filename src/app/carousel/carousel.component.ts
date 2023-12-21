@@ -23,7 +23,7 @@ export class CarouselComponent implements OnInit {
   @Input() cproductsPerSlide: number = 0; //Test Variable
   productsPerSlide = 9; // Define the number of products per slide
   chunkedProducts: any[] = [];
-  myInterval = 0;
+  myInterval = 3000;
   activeSlideIndex = 0;
   noWrap = false;
   ngOnInit(): void {
