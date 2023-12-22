@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="!isProductsDataNotFetched">
   <!--DashBoard Header-->
   <div class="dashboard-header-container">
     <h1 class="dashboard-header">{{ dashBoardTitle }}</h1>
@@ -28,3 +28,14 @@
     </div>
   </div>
 </section>
+
+<div class="loading-container" *ngIf="isProductsDataNotFetched && !errorFlag">
+  <div class="spinner"></div>
+  <p>Please wait while we fetch the data...</p>
+</div>
+
+<div class="error-container" *ngIf="errorFlag">
+  <h1>Oops! Something went wrong while fetching the data.</h1>
+  <h3>{{ errorMessage }}</h3>
+  <!-- You can add a button for retrying or other actions if needed -->
+</div>

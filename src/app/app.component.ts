@@ -10,12 +10,5 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
   styleUrl: "./app.component.css",
 })
 export class AppComponent {
-  constructor() {
-    /**Commented for future use */
-    // this._httpClient
-    //   .get('http://api.fivespiceindiangrocery.com/api/products/produce')
-    //   .subscribe((response) => {
-    //     console.log(response);
-    //   });
-  }
+  constructor() {}
 }

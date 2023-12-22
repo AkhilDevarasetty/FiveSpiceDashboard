@@ -10,6 +10,8 @@ import { FruitsComponent } from "../categories/fruits/fruits.component";
 import { VegetablesComponent } from "../categories/vegetables/vegetables.component";
 import { HerbsComponent } from "../categories/herbs/herbs.component";
 import { CarouselComponent } from "../carousel/carousel.component";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-dashboard",
@@ -19,6 +21,8 @@ import { CarouselComponent } from "../carousel/carousel.component";
     VegetablesComponent,
     HerbsComponent,
     CarouselComponent,
+    HttpClientModule,
+    CommonModule,
   ],
   templateUrl: "./dashboard.component.html",
   styleUrl: "./dashboard.component.css",
@@ -30,29 +34,44 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   herbsAndGreensData: any;
   categoriesData: any = [];
   productsPerSlide: number = 0; // test variable
-  dashBoardTitle: string = "Welcome to Five Spice Grocery Store";
+  dashBoardTitle: string = "Welcome to Five Spice Grocery Store - San Jose";
+  productsData: any = [];
+  isProductsDataNotFetched: boolean = true;
+  errorFlag: boolean = false;
+  errorMessage: string = "";
+  constructor(private _httpClient: HttpClient) {}
   ngOnInit(): void {
-    console.log(dashboardData);
+    this._httpClient
+      .get("http://api.fivespiceindiangrocery.com/api/products/produce")
+      .subscribe(
+        (response) => {
+          this.productsData = response;
+          this.isProductsDataNotFetched = false;
+          this.fruitsData = this.productsData["Fruits"];
+          this.vegetablesData = this.productsData["Vegetables"];
+          this.herbsAndGreensData = this.productsData["Herbs and Greens"];
+        },
+        (error) => {
+          this.errorFlag = true;
+          this.errorMessage = error.message;
+        }
+      );
 
     /**This is used for sequential rendering of categories like Fruits->Vegetables->Herbs */
-    this.categoriesData = [
-      {
-        category: "Fruits",
-        products: dashboardData["Fruits"],
-      },
-      {
-        category: "Vegetables",
-        products: dashboardData["Vegetables"],
-      },
-      {
-        category: "Herbs",
-        products: dashboardData["Herbs and Greens"],
-      },
-    ];
-
-    this.fruitsData = dashboardData["Fruits"];
-    this.vegetablesData = dashboardData["Vegetables"];
-    this.herbsAndGreensData = dashboardData["Herbs and Greens"];
+    // this.categoriesData = [
+    //   {
+    //     category: "Fruits",
+    //     products: this.productsData["Fruits"],
+    //   },
+    //   {
+    //     category: "Vegetables",
+    //     products: this.productsData["Vegetables"],
+    //   },
+    //   {
+    //     category: "Herbs",
+    //     products: this.productsData["Herbs and Greens"],
+    //   },
+    // ];
   }
 
   ngAfterViewInit(): void {

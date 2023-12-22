@@ -21,9 +21,9 @@ export class CarouselComponent implements OnInit {
   @Input() productData: any[] = []; // Input property to receive product data
   @Input() categoriesData: any[] = []; //Used for Sequential rendering of slides
   @Input() cproductsPerSlide: number = 0; //Test Variable
-  productsPerSlide = 9; // Define the number of products per slide
+  productsPerSlide = 12; // Define the number of products per slide
   chunkedProducts: any[] = [];
-  myInterval = 3000;
+  myInterval = 10000;
   activeSlideIndex = 0;
   noWrap = false;
   ngOnInit(): void {
