@@ -5,13 +5,13 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { dashboardData } from "../../data";
 import { FruitsComponent } from "../categories/fruits/fruits.component";
 import { VegetablesComponent } from "../categories/vegetables/vegetables.component";
 import { HerbsComponent } from "../categories/herbs/herbs.component";
 import { CarouselComponent } from "../carousel/carousel.component";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
+import { Observable, interval } from "rxjs";
 
 @Component({
   selector: "app-dashboard",
@@ -39,13 +39,26 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   isProductsDataNotFetched: boolean = true;
   errorFlag: boolean = false;
   errorMessage: string = "";
+  apiCallIntervel = 300000; //5 mins intervel
+  apiCallSubscription: Observable<number> | undefined;
   constructor(private _httpClient: HttpClient) {}
   ngOnInit(): void {
+    this.getProductsData();
+    this.apiCallSubscription = interval(this.apiCallIntervel);
+    this.apiCallSubscription.subscribe(() => {
+      this.getProductsData();
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.adjustProductsPerSlide();
+  }
+
+  getProductsData(): void {
     this._httpClient
       .get("http://api.fivespiceindiangrocery.com/api/products/produce")
       .subscribe(
         (response) => {
-          this.productsData = response;
           this.isProductsDataNotFetched = false;
           this.fruitsData = this.productsData["Fruits"];
           this.vegetablesData = this.productsData["Vegetables"];
@@ -56,26 +69,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           this.errorMessage = error.message;
         }
       );
-
-    /**This is used for sequential rendering of categories like Fruits->Vegetables->Herbs */
-    // this.categoriesData = [
-    //   {
-    //     category: "Fruits",
-    //     products: this.productsData["Fruits"],
-    //   },
-    //   {
-    //     category: "Vegetables",
-    //     products: this.productsData["Vegetables"],
-    //   },
-    //   {
-    //     category: "Herbs",
-    //     products: this.productsData["Herbs and Greens"],
-    //   },
-    // ];
-  }
-
-  ngAfterViewInit(): void {
-    this.adjustProductsPerSlide();
   }
 
   /**Function to adjust the number of products per slide based on available height - In testing */

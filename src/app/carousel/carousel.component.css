@@ -10,15 +10,14 @@
 .card {
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px #0000001a;
   overflow: hidden;
-  width: 200px;
-  height: 250px;
+  height: 200px;
 }
 
 .card img {
   width: 100%;
-  height: 150px;
+  height: 120px;
   display: block;
   object-fit: contain;
 }
@@ -29,13 +28,13 @@
 
 .name {
   margin-top: 0;
-  font-size: 18px;
+  font-size: 15px;
   color: #333;
 }
 
 .price {
   margin-bottom: 0;
-  font-size: 18px;
+  font-size: 12px;
   color: #666;
 }
 
@@ -47,7 +46,18 @@
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   grid-gap: 2px;
   padding: 10px;
+}
+
+.fallback-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: #fff; /* Fallback color in case random color generation fails */
 }

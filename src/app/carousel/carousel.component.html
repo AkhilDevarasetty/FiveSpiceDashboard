@@ -5,22 +5,31 @@
   [(activeSlide)]="activeSlideIndex"
   [isAnimated]="true"
   [showIndicators]="false"
+  [pauseOnFocus]="false"
 >
   <div class="carousel-inner" style="height: 100%">
-    <ng-container *ngFor="let chunk of chunkedProducts">
-      <slide class="slide">
-        <div class="card-grid">
-          <div *ngFor="let product of chunk" class="card">
-            <img [src]="product.image" alt="Fruit Image" />
-            <div class="info">
-              <h2 class="name">{{ product.name }}</h2>
-              <p class="price">
-                Price: <strong style="color: black;">${{ product.price }} </strong>/ {{ product.uom }}
-              </p>
+    <div *ngIf="isLoading">
+      <h1>Please Wait....</h1>
+    </div>
+    <ng-container *ngIf="!isLoading">
+      <ng-container *ngFor="let chunk of chunkedProducts">
+        <slide class="slide">
+          <div class="card-grid">
+            <div *ngFor="let product of chunk" class="card">
+              <ng-container> </ng-container>
+              <img [src]="product.image" alt="product_img" />
+              <div class="info">
+                <h2 class="name">{{ product.name }}</h2>
+                <p class="price">
+                  Price:
+                  <strong style="color: black">${{ product.price }} </strong>/
+                  {{ product.uom }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </slide>
+        </slide>
+      </ng-container>
     </ng-container>
   </div>
 </carousel>

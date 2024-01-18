@@ -1,11 +1,11 @@
-import { trigger, transition, style, animate } from "@angular/animations";
-import { NgFor } from "@angular/common";
+import { JsonPipe, NgFor, NgIf } from "@angular/common";
 import {
-  AfterViewInit,
+  ChangeDetectorRef,
   Component,
-  ElementRef,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   ViewChild,
 } from "@angular/core";
 import { CarouselModule } from "ngx-bootstrap/carousel";
@@ -13,28 +13,34 @@ import { CarouselModule } from "ngx-bootstrap/carousel";
 @Component({
   selector: "app-carousel",
   standalone: true,
-  imports: [CarouselModule, NgFor],
+  imports: [CarouselModule, NgFor, JsonPipe, NgIf],
   templateUrl: "./carousel.component.html",
   styleUrl: "./carousel.component.css",
 })
-export class CarouselComponent implements OnInit {
+export class CarouselComponent implements OnInit, OnChanges {
   @Input() productData: any[] = []; // Input property to receive product data
-  @Input() categoriesData: any[] = []; //Used for Sequential rendering of slides
-  @Input() cproductsPerSlide: number = 0; //Test Variable
-  productsPerSlide = 12; // Define the number of products per slide
+  productsPerSlide = 16; // Define the number of products per slide
   chunkedProducts: any[] = [];
   myInterval = 10000;
   activeSlideIndex = 0;
   noWrap = false;
+  isLoading: boolean = true;
+  constructor(private cdr: ChangeDetectorRef) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    this.isLoading = true;
+    this.chunkProducts();
+  }
   ngOnInit(): void {
     this.chunkProducts();
   }
   /**chunkProducts is used to slice the array based on the  productsPerSlide variable*/
   chunkProducts() {
+    if (this.chunkedProducts.length > 0) this.chunkedProducts.length = 0;
     for (let i = 0; i < this.productData.length; i += this.productsPerSlide) {
       this.chunkedProducts.push(
         this.productData.slice(i, i + this.productsPerSlide)
       );
     }
+    this.isLoading = false;
   }
 }
