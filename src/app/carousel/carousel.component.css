@@ -61,3 +61,10 @@
   font-size: 18px;
   color: #fff; /* Fallback color in case random color generation fails */
 }
+
+.loading-block{
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

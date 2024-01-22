@@ -1,5 +1,9 @@
 <main>
   <h1>Herbs And Greens 🌿</h1>
-  <!--Carousal Component-->
-  <app-carousel [productData]="herbsAndGreensData"></app-carousel>
+  <!-- Carousal Component-->
+  <app-carousel
+    [productData]="herbsAndGreensData"
+    [categoryName]="categoryName"
+    *ngIf="herbsAndGreensData"
+  ></app-carousel>
 </main>
