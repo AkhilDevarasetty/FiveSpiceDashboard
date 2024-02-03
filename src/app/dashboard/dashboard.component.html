@@ -7,21 +7,42 @@
   <!--DashBoard Body-->
   <div class="dashboard-container">
     <div class="category-column" #categoryColumn>
-      <app-fruits
-        [fruitsData]="fruitsData"
-      ></app-fruits>
+      <!-- <app-fruits [fruitsData]="fruitsData"></app-fruits> -->
+      <main>
+        <h1>Fruits 🍎</h1>
+        <!--Carousal Component-->
+        <app-carousel
+          [productData]="fruitsData"
+          [categoryName]="'Fruits'"
+          *ngIf="fruitsData"
+        ></app-carousel>
+      </main>
       <div class="separator-line"></div>
     </div>
     <div class="category-column">
-      <app-vegetables
-        [vegetablesData]="vegetablesData"
-      ></app-vegetables>
+      <!-- <app-vegetables [vegetablesData]="vegetablesData"></app-vegetables> -->
+      <main>
+        <h1>Vegetables 🥦</h1>
+        <!--Carousal Component-->
+        <app-carousel
+          [productData]="vegetablesData"
+          [categoryName]="'Vegetables'"
+          *ngIf="vegetablesData"
+        ></app-carousel>
+      </main>
       <div class="separator-line"></div>
     </div>
     <div class="category-column">
-      <app-herbs
-        [herbsAndGreensData]="herbsAndGreensData"
-      ></app-herbs>
+      <!-- <app-herbs [herbsAndGreensData]="herbsAndGreensData"></app-herbs> -->
+      <main>
+        <h1>Herbs And Greens 🌿</h1>
+        <!-- Carousal Component-->
+        <app-carousel
+          [productData]="herbsAndGreensData"
+          [categoryName]="'Herbs'"
+          *ngIf="herbsAndGreensData"
+        ></app-carousel>
+      </main>
     </div>
   </div>
 </section>
