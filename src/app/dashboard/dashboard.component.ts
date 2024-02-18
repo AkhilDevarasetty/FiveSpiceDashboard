@@ -69,27 +69,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       );
   }
 
-  /**Function to adjust the number of products per slide based on available height - In testing */
-  // adjustProductsPerSlide(): void {
-  //   const columnElement = this.categoryColumn.nativeElement;
-  //   const columnStyles = getComputedStyle(columnElement);
-  //   const paddingTop = parseInt(columnStyles.paddingTop, 10);
-  //   const paddingBottom = parseInt(columnStyles.paddingBottom, 10);
-  //   const columnHeight =
-  //     columnElement.clientHeight - paddingTop - paddingBottom;
-
-  //   const cardElement = columnElement.querySelector(".card");
-  //   if (cardElement) {
-  //     const cardStyles = getComputedStyle(cardElement);
-  //     const cardMargin = parseInt(cardStyles.marginBottom, 10);
-
-  //     const cardHeight = cardElement.clientHeight + cardMargin;
-  //     this.productsPerSlide = Math.floor(columnHeight / cardHeight);
-
-  //     console.log("Products per slide:", this.productsPerSlide);
-  //   }
-  // }
-
   ngOnDestroy(): void {
     this.apiCallSubscription && this.apiCallSubscription.unsubscribe();
   }

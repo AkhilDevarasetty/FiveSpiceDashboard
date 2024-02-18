@@ -1,10 +1,25 @@
 .carousel-inner {
-  display: flex;
+  height: 97dvh;
 }
 
-/*Disabled Carousal Next,Prev controls*/
-::ng-deep .carousel-control {
-  display: none;
+.card-scroller {
+  overflow-y: auto;
+  height: inherit;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 2px;
+  padding: 10px;
+  animation: scroll 20s linear infinite;
+}
+
+/*keyframes for the vertical scroll animation */
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
 }
 
 .card {
@@ -44,13 +59,6 @@
   margin-bottom: 10px;
 }
 
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  grid-gap: 2px;
-  padding: 10px;
-}
-
 .fallback-image {
   display: flex;
   justify-content: center;
@@ -59,10 +67,10 @@
   height: 50px;
   border-radius: 50%;
   font-size: 18px;
-  color: #fff; /* Fallback color in case random color generation fails */
+  color: #fff;
 }
 
-.loading-block{
+.loading-block {
   height: 90vh;
   display: flex;
   justify-content: center;

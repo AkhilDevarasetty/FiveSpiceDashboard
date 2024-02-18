@@ -1,5 +1,6 @@
 import { JsonPipe, NgFor, NgIf } from "@angular/common";
 import {
+  AfterContentInit,
   ChangeDetectorRef,
   Component,
   Input,
@@ -17,7 +18,7 @@ import { CarouselModule } from "ngx-bootstrap/carousel";
   templateUrl: "./carousel.component.html",
   styleUrl: "./carousel.component.css",
 })
-export class CarouselComponent implements OnInit, OnChanges, OnDestroy {
+export class CarouselComponent implements OnInit, OnDestroy {
   @Input() productData: any[] = []; // Input property to receive product data
   @Input() categoryName: string = "";
   productsPerSlide = 16; // Define the number of products per slide
@@ -28,21 +29,11 @@ export class CarouselComponent implements OnInit, OnChanges, OnDestroy {
   isLoading: boolean = true;
   intervalId: any;
   constructor(private cdr: ChangeDetectorRef) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    /**this coondition is used since ngOnChanges lifecycle hook is called during first initialisation also */
-    if (this.chunkedProducts.length) {
-      this.isLoading = true;
-      this.stopCarousel();
-      this.activeSlideIndex = 0;
-      this.chunkProducts();
-      this.startCarousel();
-    }
-  }
-  ngOnInit(): void {
-    this.chunkProducts();
-    this.startCarousel();
-  }
 
+  ngOnInit(): void {}
+
+
+  /**Below code is doesnt have any impact on the existing functionality - Just Keeping the code for reference */
   /**chunkProducts is used to slice the array based on the  productsPerSlide variable*/
   chunkProducts() {
     if (this.chunkedProducts.length > 0) this.chunkedProducts.length = 0;
@@ -65,11 +56,6 @@ export class CarouselComponent implements OnInit, OnChanges, OnDestroy {
   nextSlide(): void {
     this.activeSlideIndex =
       (this.activeSlideIndex + 1) % this.chunkedProducts.length;
-    // console.log(
-    //   this.categoryName === "Herbs"
-    //     ? `[${this.categoryName}] Next Slide - Active Index: ${this.activeSlideIndex}`
-    //     : ""
-    // );
   }
 
   ngOnDestroy(): void {
